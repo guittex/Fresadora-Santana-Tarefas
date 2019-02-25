@@ -1,0 +1,577 @@
+/*===================== RESETTT========================== */
+
+*{
+    margin: 0; 
+    padding: 0;
+    font-size: 100%;
+    border: none;
+    outline: none;
+    font-weight: 300;
+    box-sizing: border-box;
+    font-family: 'Dosis', sans-serif;
+}
+
+body{
+    background-color:#f5f5f5; 
+}
+
+a{
+    text-decoration: none;
+}
+
+ul{
+    list-style: none;
+}
+
+img{
+    max-width: 100%;
+}
+/*===================== CABEÇALHO========================== */
+
+.cabecalho{
+    width: 100%;
+    float: left;
+    padding: 1% 4%;
+    background-color: white;
+}
+
+
+.PAPdo{
+    
+    background-image: url("../img/papel4.jpg");
+    background-repeat: no-repeat;
+    background-position: 30% 45%;
+    background-size: cover;
+    display: table;
+    width: 100%;
+    height: 100vh;
+    
+    
+}
+
+.fundo2{
+    
+    background-image: url("../img/papel2.jpg");
+    background-repeat: no-repeat;
+    background-position: 30% 45%;
+    background-size: cover;
+    display: table;
+    width: 100%;
+    
+}
+
+.fundo3{
+    
+    background-image: url("../img/papel2.jpg");
+    background-repeat: no-repeat;
+    background-position: 30% 45%;
+    background-size: cover;
+    display: table;
+    width: 100%;
+    height: 100vh;
+    
+    
+}
+
+.logo{
+    width: 56px;
+    height: 56px;
+    float: left;
+    background: url(../img/logo-mobile.png) center center/56px no-repeat;
+    font-size: 0;
+}
+.btn-menu{
+    width: 56px;
+    height: 56px;
+    float: right;
+    text-align: center;
+    color: #fff;
+    border-radius: 56px;
+    cursor: pointer;
+    background: linear-gradient(to right,#00BFFF,#00FFFF);
+}
+
+/*=====================MENU========================== */
+
+.menu{
+    display: none;
+    float: top;
+    margin-top: 4px;
+    font-size: 22px;
+    letter-spacing: 3px;
+    margin-right: -52px;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background-color: rgba(0,0,0,0.9);
+    top: 0;
+    border-radius: 10px;
+    left: 0;
+}
+.btn-close{
+    font-size: 1.5em;
+    color: #fff;
+    float: right;
+    cursor: pointer;
+    margin: 2% 3% 0 0;
+}
+.menu ul{
+    width: 100%;
+    float: left;
+    margin: 0;
+    text-align: center;
+    
+}
+
+.menu li{
+    padding: 1.5%;
+    
+}
+
+.menu li a{
+    font-size: 1.5em; 
+    color: #fff;
+    padding: 1.5% 3%;
+    
+}
+
+.menu li a:hover{
+    border: 1px solid #00BFFF;
+    
+}
+/*=====================BANNER========================== */
+
+.banner{
+    width: 100%;
+    float: left;
+    text-align: center;
+    padding: 3% 4%;
+    background: url(../img/ban.jpg) no-repeat fixed;
+}
+
+.title{
+    width: 100%;
+}
+
+.title h2{
+    font-size: 2.5em;
+    color: black;
+    font-weight: 700;
+}
+.titledicas h2{
+    font-size: 2.5em;
+    color: #737780;
+    font-weight: 700;
+    text-align: center;
+}
+.title h3{
+    font-size: 1.5em;
+    color: black;
+}
+
+.buttons{
+    width: 100%;
+    margin: 2%;
+}
+.buttons i{
+float: right;
+}
+.btn-cadastrar{
+    width: 100%;
+    font-size: 1.5em;
+    text-align: left;
+    cursor: pointer;
+    padding: 2%;
+    border-radius: 10px;
+    background-color:#130400;;
+    color: #fff;
+}
+.btn-sobre{
+    width: 100%;
+    font-size: 1.5em;
+    text-align: left;
+    cursor: pointer;
+    padding: 2%;
+    border-radius: 10px;
+    background-color:#130400;;
+    color: #fff;
+    margin-top: 2%;
+}
+
+.btn-cadastrar a{
+    color: #130400;
+}
+
+.btn-sobre a{
+    color: #fff;
+}
+/*=====================SERVIÇOS========================== */
+
+.servicos{
+    width: 100%;
+    float: left;
+    padding: 3% 4%;
+}
+
+
+.servico{
+    width: 100%;
+    background-color: #fff;
+    text-align: left;
+    border-radius: 7px;
+    margin-bottom: 3%;
+}
+.servico img{
+    border-radius: 7px 7px 0 0; 
+}
+.inner{
+    padding: 7%;
+}
+.inner a{
+    font-size: 1.5em;
+    color:#130400;
+    font-weight: 700;
+}
+
+.inner h4{
+    font-size: 1.2em;
+    color:#130400;
+    margin-top: 2%;
+}
+.inner p{
+    margin-top: 6%;
+    color:#130400;
+    line-height: 1.7em;
+    font-size: 19px;
+}
+/*=====================FOOTER========================== */
+
+.newsletter{
+    width: 100%;
+    float: left;
+    text-align: center;
+    padding: 2% 3%; 
+    background-color:#130400; 
+}
+.newsletter h2{
+    font-size: 1.5em;
+    color: #fff;
+    font-weight: 700;
+}
+.newsletter h3{
+    color: #fff;
+}
+
+.newsletter form{
+    margin-top: 2%;
+}
+
+.newsletter input{
+    width: 100%;
+    background-color: #130400;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 2%;
+    border-radius: 5px;
+}
+
+.newsletter button{
+    width: 100%;
+    background-color: #fff;
+    color: #130400;
+    padding: 2%;
+    border-radius: 30px;
+    cursor: pointer;
+    margin-top: 2%;
+    font-size: 25px;
+}
+
+.foot-nos{
+    margin-left: -0.5%;
+    margin-bottom: 5%;
+    letter-spacing: 2px;
+    margin-top: -42px;
+    color: rgba(255,255,255,0.7); 
+      
+}
+
+a:visited {
+    color: rgba(255,255,255,0.7);   ;
+}
+
+.foot-nos a:hover {
+    color: black;
+}
+
+.foot-dicas{
+    margin-right: 12%;
+    margin-bottom: 2%;
+    letter-spacing: 2px;
+    margin-top: -83px;
+    color: rgba(255,255,255,0.7); 
+      
+}
+
+.foot-dicas a:hover {
+    color: black;
+}
+
+.foot-orçamento{
+    margin-left: 13.8%;
+    margin-bottom: 2%;
+    letter-spacing: 2px;
+    margin-top: -46px;
+    color: rgba(255,255,255,0.7); 
+      
+}
+
+.foot-orçamento a:hover {
+    color: black;
+}
+
+.foot-contato{
+    margin-right: 22%;
+    margin-bottom: 2%;
+    letter-spacing: 2px;
+    margin-top: -45px;
+    color: rgba(255,255,255,0.7); 
+      
+}
+
+.foot-contato a:hover {
+    color: black;
+}
+
+.foot-index{
+    margin-left: 25.5%;
+    margin-bottom: 2%;
+    letter-spacing: 2px;
+    margin-top: -45px;
+    color: rgba(255,255,255,0.7); 
+      
+}
+
+.foot-index a:hover {
+    color: black;
+}
+
+
+.rodape{
+    width: 100%;
+    float: left;
+    padding: 3% 4%;
+    text-align: center;
+    background: linear-gradient(to right,#00BFFF,#00FFFF);
+}
+
+.social-icon a {
+    font-size: 1.5em;
+    color: rgba(255,255,255,0.7);
+    margin-right: 3%;  
+}
+
+.social-icon  a:hover {
+    color: rgba(255,255,255);
+}
+
+.social-icon a:last-child{
+    margin-right: 0;
+}
+
+
+.copyright{
+    margin-top: 2%;
+    color: rgba(255,255,255,0.7);
+}
+
+/*=====================MOBILE FIRT========================== */
+/*==================SMALL DEVICES - SMARTPHONES============ */
+
+@media screen and (min-width: 480px){
+.logo{width: 214px; background: url(../img/logo4.png) center center/214px no-repeat;}
+.btn{font-size: 2em;}
+}
+@media screen and (min-width: 768px){
+.servico{width: 49%; float: left; margin-right: 2%;}
+.servico:nth-child(2){margin-right: 0;}
+.newsletter h2{font-size: 2em;}
+.newsletter h3{font-size: 1.5em;}
+.newsletter input{width: 70%; padding: 2%; float:left; margin-right: 1%;}
+.newsletter button{width: 29%; padding: 2%; margin-top: 0;}
+}
+/*==================SMALL DEVICES - TABLETS============ */
+@media screen and (min-width: 960px){
+.title {width: 70%; float: left; text-align: left;}
+.buttons{width: 30%; float:right; margin-top: 0;}
+.title h2{font-size: 3em;}
+.title h3{font-size: 2em;}  
+.servico{width: 32%;}
+.servico:nth-child(2){margin-right: 2%;}
+.servico:nth-child(3){margin-right: 0%;}
+.newsletter input{width: 60%; float: none;}
+.newsletter .button{width: 20%; float:none;}
+}
+    
+/*==================LARGE DEVICES - WIDE SCREENS============ */
+@media screen and (min-width: 1020px){
+.btn-menu{display:none;}
+.btn-close{display:none;}
+.menu{width: auto; height: 56px; line-height: 56px;float: right; background-color: #40E0D0	; display: block !important;
+     position: static;}
+.menu li{padding: 0; float: left;}
+.menu li a{color: #130400; font-size: 1em; padding: 15px;}
+.menu li a:hover{border: none; color: white;}
+}
+
+/*=====================ORÇAMENTO========================== */
+
+.titulo-obrigado{
+    width: 100%;
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 4%;
+
+}
+
+.titulo-login{
+    width: 100%;
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 4%;
+
+}
+
+.C-base{
+    background-image: url("img/papel.png");
+    width: 112%;
+    line-height: 46px;
+    font-size: 18px;;
+    text-align: center;
+    margin-top: -30px;    
+    
+}
+
+.C-base form{
+    display: inline-block;
+    position: static;
+}
+label{
+    font-size: 1.5em;
+    color: #130400;
+
+}
+
+input{
+    width: 100%;
+    background-color: rgba(245, 245, 245, 0.021);;
+    color:#130400;
+    border: 1px solid #00BFFF;
+    padding: 3%;
+    border-radius: 5px;
+        
+    
+}
+
+#mensagem {
+    height: 120px;
+    
+}
+
+textarea{
+    width: 100%;
+    background-color: rgba(245, 245, 245, 0.021);;
+    color:#130400;
+    border: 1px solid #00BFFF;
+    padding: 3%;
+    border-radius: 5px;
+
+}
+
+::-webkit-input-placeholder{
+    text-align: center;
+   
+}
+
+.btn-C{
+    width: 100%;
+    background-color:#130400;
+    color:#fff;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 5%;
+    border-radius: 5px;
+    margin-bottom: 8%;
+    margin-top: 4%;
+}
+/*=====================QUEM-SOMOS========================== */
+
+.quemsomos{
+    width: 100%;
+    text-align: center; 
+}
+
+.quemsomos h1{
+    color:#130400;
+    font-weight: 700;
+    font-size: 2em;
+}
+
+.quemsomos p{
+    line-height: 1.5em;
+    margin-top: 4%;
+    margin-bottom: 3%;
+    font-size: 19px;
+    
+}
+/*=====================CONTATO========================== */
+
+.obS{
+    margin-top: 6%;
+    margin-right: 4%;
+    border: 1px solid #00BFFF;
+    text-align: center;    
+}
+/*=====================DICAS========================== */
+
+.dicas li {
+    line-height: 1.5em;
+    font-size: 19px;
+}
+
+/*=====================CONTATO========================== */
+
+.titulo-contato{
+    width: 70%;
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 1.4%;
+
+}
+
+.img-contato{
+    width: 33%;
+    border-radius: 25px;
+    margin-bottom: 3%;
+    position: initial;
+    margin-left: 700px;
+    margin-top: -550px;
+    
+}
+
+#tabela_listar{
+    width: 90%;
+    border: 1px solid black;
+    border-collapse: collapse;
+    
+}
+
+#tabela_listar td{
+    border: 1px solid black;
+    
+}
+
+
+
+
+
+
+
