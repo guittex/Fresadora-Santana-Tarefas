@@ -28,28 +28,28 @@ class tarefas extends conexao{
             $legenda = '';
             if (!empty($this->array['PCPDATA_Ini'])){
                 $data_normal= $this->array['PCPDATA_Ini']->format('Y-m-d');
-                $legenda = $legenda .= "<img src='public/img/icon/keyboard.png' style=width:40px;> "; // TECLADO
+                $legenda = $legenda .= "<img src='public/img/icon/keyboard.png' data-toggle='modal' data-target='#bomba_modal' style=width:40px;cursor:pointer;> "; // TECLADO
 
                 //echo "<td colspan='3'>" . $this->array['PCPDATA_Ini']->format('d-m-Y') . "</td>";                         
             }
 
             if ($data_final < $data_atual){
                 $font_color = "red";
-                $legenda = $legenda .= "<img src='public/img/icon/skull.png' style=width:40px;> "; //Caveira
+                $legenda = $legenda .= "<img src='public/img/icon/skull.png'data-toggle='modal' data-target='#bomba_modal' style=width:40px;cursor:pointer;> "; //Caveira
             }
 
             if($apontamento > $data_atual - 10){
-                $legenda = "<img src='public/img/icon/hand.png' style=width:40px;> " . $legenda ; //Apontado
+                $legenda = "<img src='public/img/icon/hand.png' data-toggle='modal' data-target='#bomba_modal' style=width:40px;cursor:pointer;> " . $legenda ; //Apontado
                 $background = "yellow";
 
             }
 
             if($data_normal < $data_atual + 3 and $data_normal > $data_atual){
-                $legenda = $legenda .= "<img src='public/img/icon/hourglass.png' style=width:40px;> "; // ampulheta
+                $legenda = $legenda .= "<img src='public/img/icon/hourglass.png' data-toggle='modal' data-target='#bomba_modal' style=width:40px;cursor:pointer;> "; // ampulheta
             }
 
             if($data_normal <= $data_atual){
-                $legenda = $legenda .= "<img src='public/img/icon/bomb.png' style=width:40px;> ";//Bomba
+                $legenda = $legenda .= "<img src='public/img/icon/bomb.png' data-toggle='modal' data-target='#bomba_modal' style=width:40px;cursor:pointer;> ";//Bomba
             }            
         
             echo "<tr style=color:$font_color;background:$background>";
@@ -93,6 +93,31 @@ class tarefas extends conexao{
         
         $this->listar();
     
+    }
+
+    function legenda(){
+        echo "<div class='modal fade bd-example-modal-lg' id='bomba_modal' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>";
+        echo "<div class='modal-dialog modal-lg' role='document'>";
+        echo    "<div class='modal-content'>";
+        echo        "<div class='modal-header'>";
+        echo            "<h5 class='modal-title' id='exampleModalLabel'>Legenda</h5>";
+        echo            "<button type='button' class='close' data-dismiss='modal' aria-label='Close'>";
+        echo            "<span aria-hidden='true'>&times;</span>";
+        echo            "</button>";
+        echo        "</div>";
+        echo    "<div class='modal-body'>";
+        echo        "<img src='public/img/icon/skull.png' style=width:40px;> Foi reprogramado e já está atrasado </br>";
+        echo        "<img src='public/img/icon/bomb.png' style=width:40px;>  Atrasado e não reprogramado </br>";
+        echo        "<img src='public/img/icon/hand.png' style=width:40px;>  Atualmente apontado </br>";
+        echo        "<img src='public/img/icon/hourglass.png' style=width:40px;>  Prazo de entrega em menos de uma semana </br>";
+        echo        "<img src='public/img/icon/keyboard.png' style=width:40px;>  Foi reprogramado </br>";     
+        echo    "</div>";
+        echo    "<div class='modal-footer'>";
+        echo        "<button type='button' class='btn btn-secondary' data-dismiss='modal'>Fechar</button>";
+        echo   "</div>";
+        echo    "</div>";
+        echo "</div>";
+        echo "</div>";
     }
         
 }

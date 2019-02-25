@@ -383,6 +383,8 @@ float: right;
 .title {width: 70%; float: left; text-align: left;}
 .buttons{width: 30%; float:right; margin-top: 0;}
 .tes{font-size: 35px}
+#setor{height: 99px; font-size: 29px;}
+#recurso{height: 99px; font-size: 29px;}
 .title h2{font-size: 3em;}
 .title h3{font-size: 2em;}  
 .servico{width: 32%;}
@@ -397,6 +399,8 @@ float: right;
 .btn-menu{display:none;}
 .btn-close{display:none;}
 .tes{font-size: 30px}
+#setor{height: 58px;font-size: 21px;}
+#recurso{height: 58px;font-size: 21px;}
 .menu{width: auto; height: 56px; line-height: 56px;float: right; background-color: white	; display: block !important;
     position: static;}
 .menu li{padding: 0; float: left;}

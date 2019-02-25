@@ -59,6 +59,12 @@ include_once("menu.php");
     <div class="page-header">
         <h1 style="text-align: center;">Tarefas</h1>
     </div>
+
+
+
+
+</div>
+
     
     <div class="row" style="display: inherit; margin-top: 40px">
         <div class="col-12">
@@ -68,7 +74,7 @@ include_once("menu.php");
                 <div class="form-row">                    
                     <div class="row col-12" style="margin:0 auto">
                     
-                        <select name='setor' id='setor' class='form-control form-control-lg col-4' style="background: aqua;display: inherit">
+                        <select name='setor' id='setor' class='form-control form-control-lg col-4' style="background: aqua;display: inherit;margin-right: 40px;">
                             <option disabled selected> Selecione um Setor</option>
                             <?php
                             while($array = sqlsrv_fetch_array($query_fabrica)){?>
@@ -78,8 +84,8 @@ include_once("menu.php");
                                 
                             ?>
                         </select>                        
-                        <select name='recurso' id='recurso' class='form-control form-control-lg col-4' style="background: aqua; display:none" >
-                            <option  disabled selected> Selecione um Recurso</option>
+                        <select name='recurso' id='recurso' class='form-control form-control-lg col-4' style="background: aqua; display:none;">
+                            <option  disabled selected>Recurso</option>
                             <?php
                             
                             
@@ -152,14 +158,23 @@ include_once("menu.php");
 </div>
 
 
+<!-- MODAL BOMBA -->
+<?php
+$tarefas->legenda();
+?>
+<!----------->
+
+
 
 <!--IMPORTACAO FOOTER-->
 <?php
 include_once("footer.php");
 ?>
 
-<script src="js/modal_apagar.js"></script>
-<script src="js/jquery.js"></script>
+<script src="public/js/modal_apagar.js"></script>
+
+<script src="public/js/bootstrap-4.1.js"></script>
+
 
 <!--SCRIPT AJAX PROCURAR-->
 <script>

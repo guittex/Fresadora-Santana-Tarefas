@@ -33,7 +33,7 @@ ORDER BY
 	
 
 $query_recurso = sqlsrv_query($conexao->con, $sql_recurso);
-echo "<option disabled selected> Selecione um Recurso</option>";
+echo "<option disabled selected>Recurso</option>";
 while($array2 = sqlsrv_fetch_array($query_recurso)){?>
                                 
 <option id="recurso_option" value="<?php echo $array2['ID_RECURSO']; ?> "><?php echo $array2['ID_RECURSO']; ?>  </option> <?php
