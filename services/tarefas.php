@@ -52,15 +52,16 @@ class tarefas extends conexao{
                 $legenda = $legenda .= "<img src='public/img/icon/bomb.png' data-toggle='modal' data-target='#bomba_modal' style=width:40px;cursor:pointer;> ";//Bomba
             }            
         
-            echo "<tr style=color:$font_color;background:$background>";
+            echo "<tr style=color:$font_color;background:$background>"; 
             echo "<td>" . "<p style=font-weight:bold;color:black;>" . $this->array['PRODUTO'] .'-' .   $this->array['OPERACAO'] . "</p>" . ' VC: ' . date('d-m-Y', strtotime($data_final))  . '</br>' . $this->array['DESCRICAO'] . "</td>";
             echo "<td>" . $this->array['QTDE_TT'] . "</td>";
             echo "<td style=width:300px; >" . $this->array['CLIENTE'] .  "</td>";
             echo "<td style=width:200px;  >" . date('d-M', strtotime($data_normal)) . '</br>' . "</td>";            
             echo "<td>" . '<span style=font-family:Wingdings;font-size:31px;>' . $legenda  .  '</span>' .  "</td>";
             echo "<td>" . $this->array['PCP_OBS'] . "</td>";
+            //echo "<td> <a href=vizualizarModal.php?produto=" . $this->array['PRODUTO'] .   "</a><button type=button class='btn btn-xs btn-primary'> Visualizar</button></td>";
 
-
+            echo "</td>";
 
             $SendPesqUser = filter_input(INPUT_POST, 'SendPesqUser', FILTER_SANITIZE_STRING);
             if ($SendPesqUser){
@@ -68,7 +69,9 @@ class tarefas extends conexao{
 
             }
             echo "</tr>";
-            }    
+            }  
+            
+            
     }
 
     function pesquisar($recurso){    
@@ -96,6 +99,7 @@ class tarefas extends conexao{
     }
 
     function legenda(){
+        
         echo "<div class='modal fade bd-example-modal-lg' id='bomba_modal' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>";
         echo "<div class='modal-dialog modal-lg' role='document'>";
         echo    "<div class='modal-content'>";
@@ -118,6 +122,12 @@ class tarefas extends conexao{
         echo    "</div>";
         echo "</div>";
         echo "</div>";
+    }
+
+    public function vizualizarModal(){
+        
+    
+        
     }
         
 }

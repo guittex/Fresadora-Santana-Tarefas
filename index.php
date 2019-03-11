@@ -19,13 +19,14 @@ FROM
     COLETA.dbo.TAB_Recursos R ON 
     f.codFabrica  = R.Fabrica 
     AND R.ATIVO   = 'S'
-    --AND R.Finito  = 'S'
+    AND F.FINITO = 'S'
+    AND R.Finito  = 'S'
 GROUP BY 
     f.codFabrica  ,
     f.descricao   
 
 ORDER BY 
-    1 ";     
+    2 ";     
 
 
 $query_fabrica = sqlsrv_query($conexao->con, $sql_fabrica);
@@ -143,14 +144,19 @@ include_once("menu.php");
 
                 ?>	                
                 <!-- Inicio Loop sem pesquisar-->                 
-                <tr>
+                <tr >
                     <?php
                         if(!$SendPesqUser){                                   
-                            $tarefas->pesquisar("");        
+                            $tarefas->pesquisar(""); 
+                            
                         }
                     ?>
                 </tr>         
-                
+                <?php
+
+                    $tarefas->vizualizarModal();
+
+                ?>
                 </tbody>
             </table>            
         </div>
@@ -158,9 +164,10 @@ include_once("menu.php");
 </div>
 
 
-<!-- MODAL BOMBA -->
+<!-- MODAIS -->
 <?php
 $tarefas->legenda();
+
 ?>
 <!----------->
 
@@ -179,7 +186,7 @@ include_once("footer.php");
 <!--SCRIPT AJAX PROCURAR-->
 <script>
     $('#setor').on('change',function(){
-        $("#recurso").show("slow");
+        $("#recurso").show("fast");
         var setor = $("#setor option:selected").val();
         console.log(setor);
             $.ajax({
