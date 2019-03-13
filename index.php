@@ -106,12 +106,12 @@ include_once("menu.php");
             <table class="table table-hover">
                 <thead class="">
                 <tr>
-                    <th class="">PRODUTO</th>
-                    <th>QTDE</th>
-                    <th>CLIENTE </th>
-                    <th >DATA</th>
-                    <TH>AÇÃO</TH>
-                    <th>PCP</th>
+                    <th style='font-weight: bold;'>PRODUTO</th>
+                    <th style='font-weight: bold;'>QTDE</th>
+                    <th style='font-weight: bold;'>CLIENTE </th>
+                    <th style='font-weight: bold;'>DATA.OP</th>
+                    <TH style='font-weight: bold;'>AÇÃO</TH>
+                    <th style='font-weight: bold;'>PCP</th>
                     
                     <?php
                         $SendPesqUser = filter_input(INPUT_POST, 'SendPesqUser', FILTER_SANITIZE_STRING);

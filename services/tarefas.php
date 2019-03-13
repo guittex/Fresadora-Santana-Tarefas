@@ -1,5 +1,8 @@
 <?php
 include_once("sql_conexao.php");   
+include_once("funcoes.php");
+$funcoes = new funcoes();
+
 
 
 class tarefas extends conexao{
@@ -8,12 +11,19 @@ class tarefas extends conexao{
     public $rhs_setor;
     public $rhs_destinatario;
     public $rhs_serviço;
-    public $array;              
+    public $array;  
 
+            
+
+    
 
     public function listar(){
+        //pegando a data atual
         $data_atual = date('Y-m-d');
 
+        //chamando a função global para dentro do metodo
+        global $funcoes;
+        
 
         while($this->array = sqlsrv_fetch_array($this->query)){   
             
@@ -23,7 +33,8 @@ class tarefas extends conexao{
             $data_normal= $this->array['Prev_ini']->format('Y-m-d');
             $data_final = $this->array['DATA_FINAL']->format('Y-m-d');
             $apontamento = $this->array['APONTAMENTO']->format('Y-m-d');
-
+            $TOTAL_GERAL = $this->array['TOTAL_GERAL'];
+            //print_r($TOTAL_GERAL);
         
             $legenda = '';
             if (!empty($this->array['PCPDATA_Ini'])){
@@ -53,10 +64,10 @@ class tarefas extends conexao{
             }            
         
             echo "<tr style=color:$font_color;background:$background>"; 
-            echo "<td>" . "<p style=font-weight:bold;color:black;>" . $this->array['PRODUTO'] .'-' .   $this->array['OPERACAO'] . "</p>" . ' VC: ' . date('d-m-Y', strtotime($data_final))  . '</br>' . $this->array['DESCRICAO'] . "</td>";
+            echo "<td>" . "<p style=font-weight:bold;color:black;>" . $this->array['PRODUTO'] .'-' .   $this->array['OPERACAO'] . "</p>" . ' DATA.VC: ' . date('d-m-Y', strtotime($data_final))  . '</br>' . $this->array['DESCRICAO'] . "</td>";
             echo "<td>" . $this->array['QTDE_TT'] . "</td>";
             echo "<td style=width:300px; >" . $this->array['CLIENTE'] .  "</td>";
-            echo "<td style=width:200px;  >" . date('d-M', strtotime($data_normal)) . '</br>' . "</td>";            
+            echo "<td style=width:200px;  >" . date('d-M', strtotime($data_normal)) . '</br>' . 'Hr.Prev: '.$funcoes->HrDecToString($TOTAL_GERAL) .  "</td>";            //$this->convertHoras($this->array['TOTAL_GERAL'])
             echo "<td>" . '<span style=font-family:Wingdings;font-size:31px;>' . $legenda  .  '</span>' .  "</td>";
             echo "<td>" . $this->array['PCP_OBS'] . "</td>";
             //echo "<td> <a href=vizualizarModal.php?produto=" . $this->array['PRODUTO'] .   "</a><button type=button class='btn btn-xs btn-primary'> Visualizar</button></td>";
