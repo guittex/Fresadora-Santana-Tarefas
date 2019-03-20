@@ -33,17 +33,78 @@ $query_fabrica = sqlsrv_query($conexao->con, $sql_fabrica);
 
 
 ?>
+<style>
 
+#produto_tabela{
+    font-weight:bold;
+    color:black;border:1px solid black;
+    border-radius: 10px;
+    background:gainsboro;
+    text-align:center;
+    width: 56%;
+}
+
+#data_cliente{
+    font-weight:bold;
+    color:black;border:1px solid black;
+    border-radius: 10px;
+    background:red;
+    text-align:center;
+    width: 80%;
+    margin-left: 10px;
+    color: white;
+}
+
+#data_operacao{
+    margin-bottom: 0px;
+
+}
+
+#td_vermelha{
+    font-weight:bold;
+    color:black;border:1px solid black;
+    border-radius: 10px;
+    background: red;
+    text-align:center;
+    width: 80%;
+    color: white;
+}
+
+#td_acabando{
+    font-weight:bold;
+    color:black;border:1px solid black;
+    border-radius: 10px;
+    background: yellow;
+    text-align:center;
+    width: 80%;
+    color: black;
+}
+
+#td_verde{
+    font-weight:bold;
+    color:black;border:1px solid black;
+    border-radius: 10px;
+    background: green;
+    text-align:center;
+    width: 80%;
+    color: white;
+}
+
+
+
+</style>
 
 <!DOCTYPE html>
 <html lang="pt-br">
+
+
 
 <!--IMPORTACAO DO HEADER-->    
 <?php
 include_once("header.php");
 ?>
 
-<body class="tes">
+<body class="tes" >
 
 
 
@@ -58,7 +119,7 @@ include_once("menu.php");
 
     <!--TITULO LISTAR RHS-->
     <div class="page-header">
-        <h1 style="text-align: center;">Tarefas</h1>
+        <h1 style="text-align: center;">Tarefas - <input id='recurso_titulo' value='TOR1' style='width: 193px;border: none;padding-left: 0;'></h1>
     </div>
 
 
@@ -75,8 +136,8 @@ include_once("menu.php");
                 <div class="form-row">                    
                     <div class="row col-12" style="margin:0 auto">
                     
-                        <select name='setor' id='setor' class='form-control form-control-lg col-4' style="background: aqua;display: inherit;margin-right: 40px;">
-                            <option disabled selected> Selecione um Setor</option>
+                        <select name='setor' id='setor' class='form-control form-control-lg col-3' style="background: aqua;display: inherit;margin-right: 40px;">
+                            <option disabled selected>  Setor</option>
                             <?php
                             while($array = sqlsrv_fetch_array($query_fabrica)){?>
                                 <option id="option_setor" value="<?php echo $array['ID_FABRICA']; ?> "><?php echo $array['FABRICA_DESCR']; ?>  </option> <?php
@@ -85,13 +146,17 @@ include_once("menu.php");
                                 
                             ?>
                         </select>                        
-                        <select name='recurso' id='recurso' class='form-control form-control-lg col-4' style="background: aqua; display:none;">
+                        <select name='recurso' id='recurso' class='form-control form-control-lg col-3' style="background: aqua; display:none;margin-right: 40px;">
                             <option  disabled selected>Recurso</option>
                             <?php
                             
                             
                             ?>
-                        </select>                       
+                        </select> 
+                        <button name='pesquisa' id='' type="button" class="btn btn-primary w-25" data-toggle='modal' data-target='#pesquisar_modal'>Pesquisar</button>
+                            <?php
+                        
+                            ?>
                     </div>                    
                 </div>
             </form>
@@ -152,11 +217,7 @@ include_once("menu.php");
                         }
                     ?>
                 </tr>         
-                <?php
-
-                    $tarefas->vizualizarModal();
-
-                ?>
+                
                 </tbody>
             </table>            
         </div>
@@ -167,6 +228,8 @@ include_once("menu.php");
 <!-- MODAIS -->
 <?php
 $tarefas->legenda();
+$tarefas->pesquisar_op();
+$tarefas->modal_certeza();
 
 ?>
 <!----------->
@@ -222,6 +285,7 @@ include_once("footer.php");
                 success : function(retorno){
                     //traz o retorno do que pegou do php 
                     $( "recurso" ).show( "slow" );
+                    document.getElementById('recurso_titulo').value = recurso;
                     //alert(retorno);
                     
                     $("#corpo_tabela").html(retorno);
@@ -230,7 +294,11 @@ include_once("footer.php");
                 error:function(data){
                 }
             });
-        });       
+        });  
+
+       
+
+        
         
 
         

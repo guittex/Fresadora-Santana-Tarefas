@@ -587,8 +587,8 @@ pre code {
 
 .container-fluid {
   width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
+  padding-right: 0px;
+  padding-left: 18px;
   margin-right: auto;
   margin-left: auto;
 }
@@ -1943,6 +1943,7 @@ pre code {
 
 .table-responsive {
   display: block;
+  text-align: center;
   width: 100%;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
@@ -5546,7 +5547,7 @@ button.close {
 
 @media (min-width: 576px) {
   .modal-dialog {
-    max-width: 500px;
+    max-width: 745px;
     margin: 1.75rem auto;
   }
   .modal-dialog-centered {

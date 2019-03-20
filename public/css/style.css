@@ -565,26 +565,7 @@ textarea{
     
 }
 
-/*=====================Listar Clientes============================ */
-#tabela_listar_clientes{
-    width: 1517px;
-    border: 1px solid white;
-    border-collapse: collapse;
-    font-size: 20px;
-
-}
-
-
-#tabela_listar_clientes td{
-    border-bottom: 1px solid grey;
-
-}
-
-#tabela_listar_clientes th{
-    font-weight: bold;
-
-}
-
+/*=====================Listar Produto============================ */
 
 
 
