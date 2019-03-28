@@ -18,5 +18,7 @@ namespace footer;
         <a href="http://www.fresadorasantana.com.br/site/contato.html">Contato</a>-->        
     </div>         
     <p class="copyright" style="font-size: 20px;">Copyright Fresadora Santana 2019. Todos os direitos reservados.</p>
+    <p class="copyright" style="font-size: 18px;">Author: Guilherme Felipe de Oliveira</p>
+
     
 </footer>

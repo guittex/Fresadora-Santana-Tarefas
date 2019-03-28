@@ -366,6 +366,7 @@ float: right;
 
 @media screen and (min-width: 480px){
 .logo{width: 214px; background: url(../img/logo4.png) center center/214px no-repeat;}
+
 .tes{font-size: 40px }
 .btn{font-size: 2em;}
 }
@@ -380,12 +381,21 @@ float: right;
 }
 /*==================SMALL DEVICES - TABLETS============ */
 @media screen and (min-width: 768px){
+#logo_fresadora{width:100px;position:absolute;margin-top:23px}
 .title {width: 70%; float: left; text-align: left;}
 .buttons{width: 30%; float:right; margin-top: 0;}
 .tes{font-size: 35px}
+.form_tabela{font-size:24px!important;color:black!important}
+#produto_tabela{width:100%;}
+#mrcock{margin-left: 200px!important;}
+#input_descricao_mobile{height: 150px!important;}
+#cliente_produto{width: 828px!important;}
+#btn_geral{font-family:cursive;height: 100px;}
 #setor{height: 99px; font-size: 29px;}
+#produto{font-size: 38px!important;text-align: center;}
 #recurso{height: 99px; font-size: 29px;}
 .title h2{font-size: 3em;}
+.os_titulo{width: 40%!important;}
 .title h3{font-size: 2em;}  
 .servico{width: 32%;}
 .servico:nth-child(2){margin-right: 2%;}
@@ -398,6 +408,13 @@ float: right;
 @media screen and (min-width: 1024px){
 .btn-menu{display:none;}
 .btn-close{display:none;}
+.os_titulo{width: 20%!important;}
+.form_tabela{font-size:20px!important;width: 100%!important;}
+#mrcock{margin-left: 294px!important;}
+#produto_tabela{width:56%;}
+#btn_geral{font-size: 1rem;font-family:cursive;height: 60px;}
+#produto{font-size: 24px!important;text-align: center;}
+#logo_fresadora{width:107px;position:absolute;margin-top:21px}
 .tes{font-size: 30px}
 #setor{height: 58px;font-size: 21px;}
 #recurso{height: 58px;font-size: 21px;}
@@ -566,6 +583,7 @@ textarea{
 }
 
 /*=====================Listar Produto============================ */
+
 
 
 

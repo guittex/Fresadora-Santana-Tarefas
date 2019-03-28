@@ -28,81 +28,51 @@ GROUP BY
 ORDER BY 
     2 ";     
 
-
 $query_fabrica = sqlsrv_query($conexao->con, $sql_fabrica);
+
+$recurso = "TOR1";
+
+if(!empty($_GET['recurso'])){
+    $recurso = $_GET['recurso'];
+    //echo $recurso;
+}
+
+
+if(!empty($recurso)){
+
+echo "<script>var recurso = '". $recurso ."';
+            console.log(recurso);        
+        </script>";
+//echo "to no recurso volta ajax nao";
+
+}
+
+if(!empty($_GET['atividade'])){
+    $atividades = $_GET['atividade'];
+}
 
 
 ?>
 <style>
-
-#produto_tabela{
-    font-weight:bold;
-    color:black;border:1px solid black;
-    border-radius: 10px;
-    background:gainsboro;
-    text-align:center;
-    width: 56%;
-}
-
-#data_cliente{
-    font-weight:bold;
-    color:black;border:1px solid black;
-    border-radius: 10px;
-    background:red;
-    text-align:center;
-    width: 80%;
-    margin-left: 10px;
-    color: white;
-}
-
-#data_operacao{
-    margin-bottom: 0px;
-
-}
-
-#td_vermelha{
-    font-weight:bold;
-    color:black;border:1px solid black;
-    border-radius: 10px;
-    background: red;
-    text-align:center;
-    width: 80%;
-    color: white;
-}
-
-#td_acabando{
-    font-weight:bold;
-    color:black;border:1px solid black;
-    border-radius: 10px;
-    background: yellow;
-    text-align:center;
-    width: 80%;
-    color: black;
-}
-
-#td_verde{
-    font-weight:bold;
-    color:black;border:1px solid black;
-    border-radius: 10px;
-    background: green;
-    text-align:center;
-    width: 80%;
-    color: white;
-}
-
-
 
 </style>
 
 <!DOCTYPE html>
 <html lang="pt-br">
 
+<?php
+$tarefas->getApontamento();
 
+$atividades = $tarefas->produto_apontado['ATIVIDADE'];
+
+
+?>
 
 <!--IMPORTACAO DO HEADER-->    
 <?php
 include_once("header.php");
 ?>
+
 
 <body class="tes" >
 
@@ -112,29 +82,44 @@ include_once("header.php");
 <?php
 include_once("menu.php");
 
+
 ?>
 
 <!--INICIO DO CONTAINER-->
 <div class="container-fluid theme-showcase" role="main">
 
     <!--TITULO LISTAR RHS-->
-    <div class="page-header">
-        <h1 style="text-align: center;">Tarefas - <input id='recurso_titulo' value='TOR1' style='width: 193px;border: none;padding-left: 0;'></h1>
+    <div class="page-header text-center">
+        <input id='recurso_titulo' class='text-center' value='<?php if(!empty($_GET["recurso"])){ echo $recurso; }else{ echo 'TOR1'; }?>' style='width: 193px;border: none;padding-left: 0;font-size:37px !important' readonly>
+    </div>
+
+</div>
+
+
+    <div class="row" STYLE="display: inherit;">
+        <div class="col-md-12 table-striped table-responsive shadow p-3 mb-5 bg-white rounded" style=padding:0px!important>
+            <div class="row" id="linha_atividade" style='background:<?php echo $tarefas->background_atv ?>'>
+                <div class='col-12' style='margin-top:30px'>
+                    <div class='form-group row'>
+                        <p class='label_tabela' id='label_tabela' style=font-weight:bold;margin-top:10px>ATIVIDADE:</p>
+                        <div class='col-sm-10'>
+                            <input  class=form-control  id='atividade' style='font-size:24px!important;border:none;background:none' value='<?php echo $atividades ?>' readonly>
+                        </div>
+                    </div>                            
+                </div>
+            </div>
+        </div>
     </div>
 
 
 
-
-</div>
-
-    
     <div class="row" style="display: inherit; margin-top: 40px">
         <div class="col-12">
         
             <form method="POST">
             
                 <div class="form-row">                    
-                    <div class="row col-12" style="margin:0 auto">
+                    <div class="row col-12" style="margin-bottom:20px">
                     
                         <select name='setor' id='setor' class='form-control form-control-lg col-3' style="background: aqua;display: inherit;margin-right: 40px;">
                             <option disabled selected>  Setor</option>
@@ -153,7 +138,7 @@ include_once("menu.php");
                             
                             ?>
                         </select> 
-                        <button name='pesquisa' id='' type="button" class="btn btn-primary w-25" data-toggle='modal' data-target='#pesquisar_modal'>Pesquisar</button>
+                        <button name='pesquisa' id='btn_geral' type="button" class="btn btn-primary w-25" data-toggle='modal' data-target='#pesquisar_modal'>Pesquisar</button>
                             <?php
                         
                             ?>
@@ -167,20 +152,22 @@ include_once("menu.php");
     
     <!--TABELA LISTAR TAREFAS-->
     <div class="row" id="tabela_listar_rhs" STYLE="display: inherit;">
-        <div class="col-md-12 table-striped table-responsive shadow p-3 mb-5 bg-white rounded">
+        <div class="col-md-12 table-striped table-responsive shadow p-3 mb-5 bg-white rounded" style=padding:0px!important>
             <table class="table table-hover">
-                <thead class="">
+                 <!--<thead class="">
                 <tr>
                     <th style='font-weight: bold;'>PRODUTO</th>
                     <th style='font-weight: bold;'>QTDE</th>
                     <th style='font-weight: bold;'>CLIENTE </th>
                     <th style='font-weight: bold;'>DATA.OP</th>
-                    <TH style='font-weight: bold;'>AÇÃO</TH>
-                    <th style='font-weight: bold;'>PCP</th>
+                  
                     
                     <?php
+
                         $SendPesqUser = filter_input(INPUT_POST, 'SendPesqUser', FILTER_SANITIZE_STRING);
+                        
                         if($SendPesqUser){
+
                             echo "<th>"; 
                             echo "<a href=index.php style='color: inherit'</a><button type=button class='btn btn-xs btn-dark'>Voltar</button>";
                             echo "</th>";
@@ -190,7 +177,7 @@ include_once("menu.php");
                     ?>
                     </th>
                 </tr>
-                </thead>
+                </thead> -->
 
                 <tbody id="corpo_tabela">
 
@@ -203,16 +190,16 @@ include_once("menu.php");
                     $tarefas->pesquisar($recurso);
                         
 
-                    } 
-                    
+                    }                    
                 
 
                 ?>	                
                 <!-- Inicio Loop sem pesquisar-->                 
                 <tr >
                     <?php
+
                         if(!$SendPesqUser){                                   
-                            $tarefas->pesquisar(""); 
+                            $tarefas->pesquisar($recurso); 
                             
                         }
                     ?>
@@ -229,7 +216,6 @@ include_once("menu.php");
 <?php
 $tarefas->legenda();
 $tarefas->pesquisar_op();
-$tarefas->modal_certeza();
 
 ?>
 <!----------->
@@ -245,10 +231,16 @@ include_once("footer.php");
 
 <script src="public/js/bootstrap-4.1.js"></script>
 
+<script>
+
+//document.getElementById('recurso_input').value = "<?php echo $recurso ?>";             
+
+</script>
 
 <!--SCRIPT AJAX PROCURAR-->
 <script>
     $('#setor').on('change',function(){
+        
         $("#recurso").show("fast");
         var setor = $("#setor option:selected").val();
         console.log(setor);
@@ -262,6 +254,7 @@ include_once("footer.php");
                 success : function(retorno){
                     //traz o retorno do que pegou do php 
                     //alert(retorno);
+                    
                     $("#recurso").html(retorno);
                     
                 },
@@ -270,22 +263,32 @@ include_once("footer.php");
                 }
             });
             
-        });
-        
-            $('#recurso').on('change',function(){
-            var recurso = $("#recurso option:selected").text();
+        });        
+
+
+            <?php
+
+            if(empty($_GET['recurso'])){
+                echo "$('#recurso').on('change',function(){";
+                    
+                    
+                echo "var recurso = $('#recurso option:selected').text();";
+            ?>
+            
             console.log(recurso);
+            
             $.ajax({
                 type: "POST",
                 url: "services/tarefas.php",
                 data: {recurso : recurso},
                 beforeSend : function () {
-                        console.log('Carregando...');
+                        console.log('Carregando AJAX IF...');
                 },
                 success : function(retorno){
                     //traz o retorno do que pegou do php 
                     $( "recurso" ).show( "slow" );
                     document.getElementById('recurso_titulo').value = recurso;
+                    
                     //alert(retorno);
                     
                     $("#corpo_tabela").html(retorno);
@@ -294,11 +297,40 @@ include_once("footer.php");
                 error:function(data){
                 }
             });
-        });  
+        <?php
+            echo "})";  
+            
+            }else{
+                
+                ?>
+            $('#recurso').on('change',function(){
+                var recurso = $('#recurso option:selected').text()
+                console.log(recurso);
+                
+                $.ajax({
+                    type: "POST",
+                    url: "services/tarefas.php",
+                    data: {recurso : recurso},
+                    beforeSend : function () {
+                            console.log('Carregando AJAX else...');
+                    },
+                    success : function(retorno){
+                        //traz o retorno do que pegou do php 
+                        $( "recurso" ).show( "slow" );
+                        document.getElementById('recurso_titulo').value = recurso;                        
 
-       
+                        //alert(retorno);
+                        
+                        $("#corpo_tabela").html(retorno);
+                    },
+                                            
+                    error:function(data){
+                    }
+                });
+            });
 
-        
+        <?php }?>       
+
         
 
         
