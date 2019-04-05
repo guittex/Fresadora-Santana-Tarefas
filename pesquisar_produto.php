@@ -49,7 +49,7 @@ include_once("header.php");
 <!DOCTYPE html>
 <html lang="pt-br">
 
-<body class="tes">
+<body class="tes" style='background: white!important;'>
 
     <div class="container-fluid">
 

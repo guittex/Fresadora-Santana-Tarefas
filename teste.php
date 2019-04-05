@@ -1,25 +1,26 @@
+<?php
+
+include_once("services/sql_conexao.php");
+
+include_once("services/funcoes.php");
+
+$funcoes = new funcoes();
+
+$conexao = new conexao($database);
+
+$conexao->sql_conexao("TAREFAS");
+
+$sql = " EXEC FS_NEW.DBO.SP_GetApontamento 'tor1'";
+	
+
+$query = sqlsrv_query($conexao->con, $sql);
 
 
-<?php 
-
-$produto = $_GET['produto'];
-
-echo $produto;
-
-/*
-    $dt1 = strtotime(date("2017-02-04"));
-
-    $dt2 = strtotime('2017-02-04');
+while($array = sqlsrv_fetch_array($query)){
+    $tempo = $array['HR_SALDO'];
+    echo $funcoes->HrDecToString($tempo ) ."-";
+    echo $tempo;
+}
 
 
-    if($dt1 == $dt2){
-        echo "<style> #teste{background:red};  </style>";
-        echo "<p id=teste>as datas são iguais<p>";
-    }else{
-        echo "<style> #teste{background:blue};  </style>";
-
-        echo "<p id=teste>diferente<p>";
-    }
-    */
 ?>
-

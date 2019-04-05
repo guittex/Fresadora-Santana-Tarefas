@@ -117,16 +117,8 @@ class produto extends tarefas{
                 }
             }
                 //-------------------------------TABELA INICIO--------------------------     
-                
-                /*$operacao = $this->array_produto['GORDE'] ;
 
-                while($this->array_produto = sqlsrv_fetch_array($this->query_produto) and $this->array_produto['GMAQU']== '.' ){ 
 
-                        $operacao .= $this->array_produto['GORDE'];                         
-
-                    
-                }*/
-            
 
                 
                 

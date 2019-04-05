@@ -47,6 +47,7 @@ echo "<script>var recurso = '". $recurso ."';
 
 }
 
+
 if(!empty($_GET['atividade'])){
     $atividades = $_GET['atividade'];
 }
@@ -54,6 +55,8 @@ if(!empty($_GET['atividade'])){
 
 ?>
 <style>
+
+
 
 </style>
 
@@ -74,9 +77,8 @@ include_once("header.php");
 ?>
 
 
-<body class="tes" >
 
-
+<body class="tes" style='background: white!important;'>
 
 <!--IMPORTACAO DO MENU--> 
 <?php
@@ -90,7 +92,10 @@ include_once("menu.php");
 
     <!--TITULO LISTAR RHS-->
     <div class="page-header text-center">
-        <input id='recurso_titulo' class='text-center' value='<?php if(!empty($_GET["recurso"])){ echo $recurso; }else{ echo 'TOR1'; }?>' style='width: 193px;border: none;padding-left: 0;font-size:37px !important' readonly>
+        <!--<img id='btn_prev' src=public/img/voltar.png>-->
+        <input id='recurso_titulo' class='text-center' value='<?php if(!empty($_GET["recurso"])){ echo $recurso; }else{ echo 'TOR1'; }?>' style='width: 193px;margin-left:5px;border: none;padding-left: -1;font-size:37px !important' readonly>
+        <!--<img id='btn_proximo' src=public/img/proximo.png style='max-width: 75%!important;'>-->
+
     </div>
 
 </div>
@@ -131,17 +136,19 @@ include_once("menu.php");
                                 
                             ?>
                         </select>                        
-                        <select name='recurso' id='recurso' class='form-control form-control-lg col-3' style="background: aqua; display:none;margin-right: 40px;">
+                        <select name='recurso' id='recurso' class='form-control form-control-lg col-3' style="background: aqua; display:none;margin-right: 30px;">
                             <option  disabled selected>Recurso</option>
                             <?php
                             
                             
                             ?>
                         </select> 
-                        <button name='pesquisa' id='btn_geral' type="button" class="btn btn-primary w-25" data-toggle='modal' data-target='#pesquisar_modal'>Pesquisar</button>
-                            <?php
-                        
-                            ?>
+                        <button name='pesquisa' id='btn_geral' type="button" class="btn btn-primary w-25" data-toggle='modal' data-target='#pesquisar_modal'>Produto</button>
+						
+                        <div class="divSetor_select">
+                            <button name='painel' id='btn_geral' type="button" data-toggle='modal' data-target='#selecionar_setor' class="btn btn-danger" style=margin-left:50px>Painel</button>
+                        </div>
+
                     </div>                    
                 </div>
             </form>
@@ -154,13 +161,13 @@ include_once("menu.php");
     <div class="row" id="tabela_listar_rhs" STYLE="display: inherit;">
         <div class="col-md-12 table-striped table-responsive shadow p-3 mb-5 bg-white rounded" style=padding:0px!important>
             <table class="table table-hover">
-                 <!--<thead class="">
+                <!--<thead class="">
                 <tr>
                     <th style='font-weight: bold;'>PRODUTO</th>
                     <th style='font-weight: bold;'>QTDE</th>
                     <th style='font-weight: bold;'>CLIENTE </th>
                     <th style='font-weight: bold;'>DATA.OP</th>
-                  
+                    
                     
                     <?php
 
@@ -216,6 +223,8 @@ include_once("menu.php");
 <?php
 $tarefas->legenda();
 $tarefas->pesquisar_op();
+$tarefas->razaoDo_nome();
+$tarefas->selecionar_setor();
 
 ?>
 <!----------->
@@ -237,24 +246,29 @@ include_once("footer.php");
 
 </script>
 
+
+
 <!--SCRIPT AJAX PROCURAR-->
 <script>
     $('#setor').on('change',function(){
         
         $("#recurso").show("fast");
-        var setor = $("#setor option:selected").val();
+        var setor = $("#setor option:selected").val();     
+        var nome_setor = $("#setor option:selected").text();     
+
+        console.log(nome_setor);
         console.log(setor);
+            //AJAX PARA SELEÇÃO DO SETOR
             $.ajax({
                 type: "POST",
                 url: "services/ajax_setor.php",
                 data: {setor : setor},
                 beforeSend : function () {
-                        console.log('Carregando...');
+                        console.log('Carregando Setor Select...');
                 },
                 success : function(retorno){
                     //traz o retorno do que pegou do php 
-                    //alert(retorno);
-                    
+                    //alert(retorno);                                            
                     $("#recurso").html(retorno);
                     
                 },
@@ -262,8 +276,28 @@ include_once("footer.php");
                 error:function(data){
                 }
             });
+
+            //AJAX PARA ABRIR PAINEL
+            $.ajax({
+                type: "POST",
+                url: "services/ajax_painel.php",
+                data: {setor : setor , nome_setor : nome_setor},
+                beforeSend : function () {
+                        console.log('Carregando Setor Painel...');
+                },
+                success : function(retorno){
+                    //traz o retorno do que pegou do php 
+                    //alert(retorno);                                     
+                    $(".divSetor_select").html(retorno);
+                    
+                },
+                                        
+                error:function(data){
+                }
+            });
             
-        });        
+        });   
+
 
 
             <?php
@@ -329,7 +363,34 @@ include_once("footer.php");
                 });
             });
 
-        <?php }?>       
+        <?php }?>
+
+        $( "#btn_proximo" ).click(function() {
+            var recurso = $('#recurso option:selected').text()
+
+            console.log(recurso);
+            
+            $.ajax({
+                type: "POST",
+                url: "services/tarefas.php",
+                data: {recurso : recurso},
+                beforeSend : function () {
+                        console.log('Carregando AJAX else...');
+                },
+                success : function(retorno){
+                    //traz o retorno do que pegou do php 
+                    $( "recurso" ).show( "slow" );
+                    document.getElementById('recurso_titulo').value = recurso;                        
+
+                    //alert(retorno);
+                    
+                    $("#corpo_tabela").html(retorno);
+                },
+                                        
+                error:function(data){
+                }
+            });        
+        });       
 
         
 

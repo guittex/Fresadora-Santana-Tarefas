@@ -130,7 +130,7 @@ class tarefas extends conexao{
                 $legenda_multa = '';
             }
         
-            echo "<td style=width:438px; > <p> ". $legenda_multa . $this->array['CLIENTE'] .  "</p><p>" . $this->array['DESCRICAO'] . " </p><p style='1px solid;background:blue;color:white;border-radius:10px'>" .$this->array['PCP_OBS'] . "</p><p style=background:orange;color:black;font-weight:bold;border-radius:10px>" .$this->array['LOCALIZACAO']. "</p></td>";
+            echo "<td style=width:438px; > <p> ". $legenda_multa . $this->array['CLIENTE'] .  "</p><p>" . $this->array['DESCRICAO'] . " </p><p style='1px solid;background:blue;color:white;border-radius:10px'>" .$this->array['PCP_OBS'] . "</p><p  style=background:orange;color:black;font-weight:bold;border-radius:10px>" .$this->array['LOCALIZACAO']. "</p></td>";
             
             //Diferença da hora da operação menos a data atual
             $datetime_op = date_create($data_normal);
@@ -273,72 +273,64 @@ class tarefas extends conexao{
     
     }   
 
+    public function razaoDo_nome(){
+        global $recurso;
+        //echo $recurso;
+        /*
+        echo "<div class='modal fade bd-example-modal-lg' id='razaoDo_nome' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>";
+        echo "<div class='modal-dialog modal-lg' role='document'>";
+        echo    "<div class='modal-content'>";
+        echo        "<div class='modal-header'>";
+        echo            "<h2 class='modal-title' id='modalTituloPesquisar'><span style=font-weight:bold>Significado do nome MR. Chicken</span></h2>";
+        echo            "<button type='button' class='close' data-dismiss='modal' aria-label='Close'>";
+        echo            "<span aria-hidden='true'>&times;</span>";
+        echo            "</button>";
+        echo        "</div>";
+        echo            "<div class='modal-body'>";
+        echo                "<p>Você acabou de descobrir um de nossos Easter Egg do sistema</p>";
+        echo                "<p><span style=font-weight:bold>O significado de Mr.Chicken:</span> Vem de um antigo supervisor fofoqueiro de um de nossos funcionários
+                                aonde ele trabalhava antigamente que se chamava 'Zé Galinha', sendo assim, apelidamos nosso sistema como 'Zé Galinha' 
+                                por conta que o sistema cagueta o que cada recurso está fazendo e se está parado ou não</p>"; 
+        echo                "<p> O nome Mr. Chicken dado é apenas um cod-nome para ocultar realmente o verdadeiro significado  </p>";                           
+        echo            "</div>";
+        echo            "<div class='modal-footer'>";
+        echo                "<button type='button' class='btn btn-danger' id='btn_geral' data-dismiss='modal'>Fechar</button>";
+        echo            "</div>";
+        echo    "</div>";  
+        echo "</div>";
+        echo "</div>";*/
+    
+    }   
+
+    public function selecionar_setor(){
+        echo "<div class='modal fade bd-example-modal-lg' id='selecionar_setor' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>";
+        echo "<div class='modal-dialog modal-lg' role='document'>";
+        echo    "<div class='modal-content'>";
+        echo        "<div class='modal-header'>";
+        echo            "<h2 class='modal-title' id='modalTituloPesquisar'><span style=font-weight:bold>Atenção!</span></h2>";
+        echo            "<button type='button' class='close' data-dismiss='modal' aria-label='Close'>";
+        echo            "<span aria-hidden='true'>&times;</span>";
+        echo            "</button>";
+        echo        "</div>";
+        echo            "<div class='modal-body'>";
+        echo                "<p>Selecione o setor para abrir o Painel</p>";                             
+        echo            "</div>";
+        echo            "<div class='modal-footer'>";
+        echo                "<button type='button' class='btn btn-danger' id='btn_geral' data-dismiss='modal'>Fechar</button>";
+        echo            "</div>";
+        echo    "</div>";  
+        echo "</div>";
+        echo "</div>";
+    
+    }   
+
     public function getApontamento(){
         $this->sql_conexao("TAREFAS");
 
         global $recurso;
         //echo $recurso;
 
-        $sql= "
-                SELECT 
-                    TOP 1
-                    A.Produto    ,
-                    Operacao   ,
-                    Inicio     ,
-                    G.PREAC_Recurso ,
-                    CodRecurso ,
-                    CodParada  ,
-                    --P.DESCRICAO,
-                    (
-                    CASE WHEN ISNULL( A.PRODUTO,'')='' THEN 
-                        '*PARADA* '
-                    ELSE
-                        'TRABALHANDO '
-                    END
-                    +
-                    CONVERT(VARCHAR(5), (GETDATE()-INICIO) ,108)+' Hrs '+
-            
-                CASE WHEN ISNULL( A.PRODUTO,'')='' THEN 
-                    P.DESCRICAO
-                ELSE
-                    'Prod.'+A.Produto+' - '+cast(operacao as varchar(10)) +
-                    ' '+CAST( ANOME AS VARCHAR(20))
-                END 
-                )
-                AS ATIVIDADE
-                    
-            
-                        
-                FROM
-                    COLETA.dbo.TAB_Apontamento A
-                    LEFT JOIN 
-                    COLETA.dbo.TAB_Codpar  P ON 
-                    A.CodParada  = P.CODPAR
-                
-            
-                LEFT JOIN 
-                    FS_NEW.FSMASTER.ARQ31 G ON 
-                    ISNULL(A.CodParada ,'') ='' AND 
-                    G.GPROD = A.PRODUTO AND
-                    G.GORDE = A.Operacao 
-            
-                LEFT JOIN 
-                    FS_NEW.FSMASTER.ARQ30 F ON 
-                    ISNULL(A.CodParada ,'') ='' AND 
-                    G.GPROD = F.FPROD  AND
-                    F.IS_DELETED ='N' 
-                
-                LEFT JOIN 
-                    FS_NEW.FSMASTER.ARQ01 C ON 
-                    ISNULL(A.CodParada ,'') ='' AND 
-                    F.FCLFO  = C.ACODI  AND
-                    C.IS_DELETED ='N' 
-            
-            
-            WHERE
-                CodRecurso = '$recurso'
-            
-            ORDER BY 3 DESC";
+        $sql= " EXEC FS_NEW.DBO.SP_GetApontamento '$recurso' ";           
 
             $query = sqlsrv_query($this->con,$sql);
 
@@ -346,11 +338,101 @@ class tarefas extends conexao{
 
             $this->atividades = $this->produto_apontado['ATIVIDADE'];  
             
-            $this->produto = $this->produto_apontado['Produto'];  
-
-           
+            $this->produto = $this->produto_apontado['Produto'];          
             
             //$this->atividades = str_replace('AGUARDANDO APONTAMENTO', ' ', trim($this->atividades));
+
+    }
+
+
+    public function painel_listar($setor,$titulo){
+        global $funcoes;
+
+
+        $this->sql_conexao("TAREFAS");
+        include_once("ajax_setor.php");       
+    
+        while($array2 = sqlsrv_fetch_array($query_recurso)){
+            
+            $arrayDosRecursos = $array2['ID_RECURSO'];
+
+            $sql= "EXEC FS_NEW.DBO.SP_GetApontamento '$arrayDosRecursos' ";
+
+            $query = sqlsrv_query($this->con,$sql);
+
+            $this->produto_apontado = sqlsrv_fetch_array($query);            
+
+            //Valore vindo do sql
+            $this->atividades = $this->produto_apontado['ATIVIDADE'];
+            $tempo = $this->produto_apontado['HR_SALDO'];
+
+
+            //Convertendo hora decimal para string
+            $tempo_convertido = $funcoes->HrDecToString($tempo);    
+
+            //Background e Cor do tempo do painel            
+            $background_hr = "red";
+            $color_hr = "white";
+
+            //Cores do tempo painel de apontamentos
+            if($tempo_convertido > 0){
+                $background_hr = "";
+                $color_hr = "white";
+            }
+
+            $background = 'white';
+            $pisca = "padrao";
+            $color = 'black';
+            $img = "";
+            $width = "40px";
+            $icon = "";
+
+            //Cores do corpo da tabela do painel
+            if($this->produto_apontado['Produto'] <= " "){
+                $background = $this->produto_apontado['Color_Back'];
+                $color = $this->produto_apontado['Color_Font'];
+                $icon = $this->produto_apontado['Imagem'];
+                $img = "./public/img/icon/".$icon." ";
+                $pisca = 'fa-blink';
+            }elseif($this->produto_apontado['Produto'] > " " and $tempo_convertido > 0){
+                $background = "lawngreen";
+                $img = "./public/img/icon/time_green.png";
+                $width = "40px";
+
+            }else{
+                $background = "lawngreen";
+                $color = "red";
+                $img = "./public/img/icon/time_red.png";
+                $width = "40px";
+
+            }
+
+            // echo '<p style=background:yellow><span  style=color:black;font-weight:bold;>ATIVIDADES:</span>'. $this->atividades . '</p></br>';
+            if(!empty($titulo)){
+            echo    "<script>document.getElementById('titulo_painel').innerHTML='".$titulo."';</script>";
+            }
+
+            echo    "<div class='col-lg-4 col-md-6 col-sm-12 col-12'>";    
+            echo        "<table class='table table-bordered'>";
+            echo            "<thead class='thead-dark'>";
+            echo                "<tr>";
+            echo                    "<th scope='col'>". $this->produto_apontado['CodRecurso'] . '<span  style=background:'.$background_hr.';color:'.$color_hr.';float:right>'.$tempo_convertido.'</span>' .  "</th>";    
+            echo                "</tr>";
+            echo            "</thead>";
+            echo            "<tbody>";
+            echo                "<tr>";        
+            echo                    "<td class=".$pisca." style='background:".$background.";color:".$color.";border-color:black;'>". $this->atividades . "<img style=width:".$width." src=".$img.">" . "</td>";  
+            echo                "</tr>";
+            echo            "</tbody>";
+            echo        "</table>";
+            echo    "</div>";
+
+        }   
+        
+        unset($sql);
+        unset($array2);
+
+
 
     }
 
@@ -358,8 +440,9 @@ class tarefas extends conexao{
 
 if($_POST){
     $tarefas = new tarefas();
+    
+    $recurso = $_POST['recurso'];    
 
-    $recurso = $_POST['recurso'];
 
     $tarefas->getApontamento();
 

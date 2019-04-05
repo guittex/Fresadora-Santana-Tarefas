@@ -31,7 +31,6 @@ img{
 
 .cabecalho{
     width: 100%;
-    float: left;
     padding: 1% 4%;
     background-color: white;
 }
@@ -335,10 +334,11 @@ float: right;
 
 .rodape{
     width: 100%;    
-    float: left;
-    padding: 3% 4%;
+    height: 180px;
+    position: absolute;
+    left: 0;    
     text-align: center;
-    background: linear-gradient(to right,#00BFFF,#00FFFF);
+    background: linear-gradient(to left,#00BFFF,#010129);
 }
 
 .social-icon a {
@@ -372,7 +372,8 @@ float: right;
 }
 @media screen and (min-width: 600px){
 .servico{width: 49%; float: left; margin-right: 2%;}
-.tes{font-size: 35px }
+.tes{font-size: 35px}
+#btn_voltar{width:151px!important;}
 .servico:nth-child(2){margin-right: 0;}
 .newsletter h2{font-size: 2em;}
 .newsletter h3{font-size: 1.5em;}
@@ -384,10 +385,14 @@ float: right;
 #logo_fresadora{width:100px;position:absolute;margin-top:23px}
 .title {width: 70%; float: left; text-align: left;}
 .buttons{width: 30%; float:right; margin-top: 0;}
-.tes{font-size: 35px}
+.tes{font-size: 35px;background: linear-gradient(to right,#00BFFF,#010101);}
+#btn_voltar{width:100px!important;}
 .form_tabela{font-size:24px!important;color:black!important}
 #produto_tabela{width:100%;}
+#select_setor{display: inherit;margin-right: 40px;height:73px;font-size:35px;margin-top:20px;width:200px;float:right}
 #mrcock{margin-left: 200px!important;}
+#btn_desligar{width:115px;float:left;cursor:pointer;}
+#btn_ligar{width:115px;float:left;display:none;cursor:pointer}
 #input_descricao_mobile{height: 150px!important;}
 #cliente_produto{width: 828px!important;}
 #btn_geral{font-family:cursive;height: 100px;}
@@ -408,14 +413,19 @@ float: right;
 @media screen and (min-width: 1024px){
 .btn-menu{display:none;}
 .btn-close{display:none;}
+#select_setor{margin-top:auto;display: inherit;margin-right: 40px;height:50px;font-size:28px;float:right;width:250px}
+#btn_desligar{width:70px;float:left;cursor:pointer;}
+#btn_ligar{width:70px;float:left;display:none;cursor:pointer}
+
 .os_titulo{width: 20%!important;}
+#btn_voltar{width: 50px!important;}
 .form_tabela{font-size:20px!important;width: 100%!important;}
 #mrcock{margin-left: 294px!important;}
 #produto_tabela{width:56%;}
 #btn_geral{font-size: 1rem;font-family:cursive;height: 60px;}
 #produto{font-size: 24px!important;text-align: center;}
 #logo_fresadora{width:107px;position:absolute;margin-top:21px}
-.tes{font-size: 30px}
+.tes{font-size: 30px;background: linear-gradient(#00BFFF,#010101);}
 #setor{height: 58px;font-size: 21px;}
 #recurso{height: 58px;font-size: 21px;}
 .menu{width: auto; height: 56px; line-height: 56px;float: right; background-color: white	; display: block !important;

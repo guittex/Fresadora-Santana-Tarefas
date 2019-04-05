@@ -15,10 +15,8 @@ namespace footer;
         <!--<a href="http://www.fresadorasantana.com.br/site/index.html">Home</a>
         <a href="http://www.fresadorasantana.com.br/site/empresa.html">Empresa</a>
         <a href="http://www.fresadorasantana.com.br/site/produtos.html">Produtos</a>
-        <a href="http://www.fresadorasantana.com.br/site/contato.html">Contato</a>-->        
+        <a href="http://www.fresadorasantana.com.br/site/contato.html">Contato</a>-->      
+        <p class="copyright" style="font-size: 21px;padding:50px">Copyright Fresadora Santana 2019. Todos os direitos reservados.</p>    
+  
     </div>         
-    <p class="copyright" style="font-size: 20px;">Copyright Fresadora Santana 2019. Todos os direitos reservados.</p>
-    <p class="copyright" style="font-size: 18px;">Author: Guilherme Felipe de Oliveira</p>
-
-    
 </footer>

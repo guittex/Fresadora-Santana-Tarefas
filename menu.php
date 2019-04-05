@@ -15,7 +15,7 @@
 
 
                     
-                <img id="mrcock" src="public/img/MrChicken.png" style='width: 186px;border-radius: 25px;filter: drop-shadow(0px 12px 6px #00001E);'>
+                <img id="mrcock" src="public/img/MrChicken.png" data-toggle='modal' data-target='#razaoDo_nome' style='width: 186px;border-radius: 25px;filter: drop-shadow(0px 12px 6px #00001E);'>
 
             </div>  
         </div>
