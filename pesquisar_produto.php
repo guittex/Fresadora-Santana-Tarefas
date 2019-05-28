@@ -35,6 +35,25 @@ if($_POST){
 
 
 }
+$porta = $_SERVER['SERVER_PORT'];
+
+session_start();
+
+if (isset($_SESSION["login"])) { 
+    $porta = 8086;
+    //echo $_SESSION['login'];
+}
+
+if ( $porta != 8086){
+
+    echo
+    "<script>   
+        alert('Necessário entrar primeiro!');
+    </script>";    
+    header('Location: login.php'); 
+
+    
+}
 
 
 ?>
@@ -171,7 +190,6 @@ include_once("header.php");
 <!-- MODAIS -->
 <?php
 $tarefas->pesquisar_op();
-
 ?>
 <!----------->
 

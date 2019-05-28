@@ -20,14 +20,8 @@ class tarefas extends conexao{
 
     public function listar($recurso){
         //$this->getApontamento();
-
-
-
         $produto_apontado = $this->produto_apontado['Produto'];
         $operacao_apontado = $this->produto_apontado['Operacao'];
-
-        //echo $operacao_apontado;
-
 
         //pegando a data atual
         $data_atual = date('Y-m-d');  
@@ -40,8 +34,7 @@ class tarefas extends conexao{
         $mudar_cor = "td_acabando";
 
         //chamando a função global para dentro do metodo
-        global $funcoes;
-        
+        global $funcoes;        
 
         while($this->array = sqlsrv_fetch_array($this->query)){   
             
@@ -61,8 +54,7 @@ class tarefas extends conexao{
                 $legenda = $legenda .= "<img src='public/img/icon/keyboard.png' data-toggle='modal' data-target='#bomba_modal' style=width:40px;cursor:pointer;> "; // TECLADO
 
                 //echo "<td colspan='3'>" . $this->array['PCPDATA_Ini']->format('d-m-Y') . "</td>";                         
-            }
-        
+            }        
             
             if ($data_final < $data_atual){
                 $font_color = "red";
@@ -86,13 +78,9 @@ class tarefas extends conexao{
             if($produto_apontado == $this->array['PRODUTO'] and $operacao_apontado  == $this->array['OPERACAO'] ){
                 //$legenda = "<img src='public/img/icon/hand.png' data-toggle='modal' data-target='#bomba_modal' style=width:40px;cursor:pointer;> " . $legenda ; //Apontado
                 $background = "yellow";        
-                //echo $operacao_apontado  ;
-                //echo $produto_apontado;
                 
             }           
     
-
-        
             echo "<tr style='color:$font_color;background:$background'>"; 
             
             //Diferença da hora vendas clientes - Hora atual
@@ -140,7 +128,6 @@ class tarefas extends conexao{
             //Pega a data da operação e converte
             $dtOp_convert = date("Y-m-d",strtotime($data_normal));
 
-
             //Verifica se a data da operação é menor que a atual
             if($dtOp_convert < $dtAtual_convert){
                 //Tem que ta vermelho os - dias
@@ -158,17 +145,13 @@ class tarefas extends conexao{
             
             echo "<td style=width:10%;>" . '<span style=font-family:Wingdings;font-size:31px;>' . $legenda  .  '</span>' .  "</td>";
 
-
             echo "</td>";
 
             echo "</tr>";
             }  
-
-
             //PEGA O CAMP ATIVIDADE DO BANCO E COLOCA NO TITULO 
             echo "<script>document.getElementById('atividade').value = '$this->atividades'; </script>";
 
-        
             if(empty($this->produto)){
                 //echo "red";
                 $this->background_atv = 'red';
@@ -186,18 +169,12 @@ class tarefas extends conexao{
                 echo "<script>document.getElementById('atividade').style.color= 'black';</script>";
                 echo "<script>document.getElementById('label_tabela').style.color= 'black';</script>";
 
-
-                //echo "yellow";
-            }
-    
-            
-            
+            }      
             
     }
 
     function pesquisar($recurso){    
         $this->sql_conexao("TAREFAS");
-        //echo "to na tarefas - " . $recurso;        
         
         $data = date('Y-m-d');
         $data_maior = date('Y-m-d', strtotime($data. ' + 90 days'));
@@ -207,9 +184,7 @@ class tarefas extends conexao{
         
         $sql_comparacao = " EXEC SP_Lista_de_tarefa '$recurso', '$data_menor' , '$data_maior'  "; 
         
-        $this->query = sqlsrv_query($this->con, $sql_comparacao );        
-        
-
+        $this->query = sqlsrv_query($this->con, $sql_comparacao );
 
         $this->listar($recurso);
     
@@ -233,7 +208,6 @@ class tarefas extends conexao{
         echo        "<img src='public/img/icon/skull.png' style=width:40px;margin:10px;> Prazo OS Atrasado </br>";
         echo        "<img src='public/img/icon/bomb.png' style=width:40px;margin:10px;>  Foi reprogramado e já está atrasado </br>";
         echo        "<img src='public/img/icon/dolar.png' style=width:40px;margin:10px;>  Multa </br>";
-
         echo    "</div>";
         echo    "<div class='modal-footer'>";
         echo        "<button type='button' class='btn btn-secondary' data-dismiss='modal'>Fechar</button>";
@@ -347,9 +321,11 @@ class tarefas extends conexao{
 
     public function painel_listar($setor,$titulo){
         global $funcoes;
-
+		
+		set_time_limit(60);
 
         $this->sql_conexao("TAREFAS");
+
         include_once("ajax_setor.php");       
     
         while($array2 = sqlsrv_fetch_array($query_recurso)){
@@ -360,22 +336,24 @@ class tarefas extends conexao{
 
             $query = sqlsrv_query($this->con,$sql);
 
-            $this->produto_apontado = sqlsrv_fetch_array($query);            
-
-            //Valore vindo do sql
+            $this->produto_apontado = sqlsrv_fetch_array($query);
+            //Valores vindo do sql
             $this->atividades = $this->produto_apontado['ATIVIDADE'];
-            $tempo = $this->produto_apontado['HR_SALDO'];
-
+            $hr_saldo = $this->produto_apontado['HR_SALDO'];
+            $hr_prev = $this->produto_apontado['HR_PREVSTA'];
+            $hr_real = $this->produto_apontado['HR_REAL'];
 
             //Convertendo hora decimal para string
-            $tempo_convertido = $funcoes->HrDecToString($tempo);    
+            $hrSaldo_convert = $funcoes->HrDecToString($hr_saldo);
+            $hrPrev_convert = $funcoes->HrDecToString($hr_prev);    
+            $hrReal_convert = $funcoes->HrDecToString($hr_real);        
 
             //Background e Cor do tempo do painel            
             $background_hr = "red";
             $color_hr = "white";
 
             //Cores do tempo painel de apontamentos
-            if($tempo_convertido > 0){
+            if($hrSaldo_convert >= 0){
                 $background_hr = "";
                 $color_hr = "white";
             }
@@ -394,18 +372,31 @@ class tarefas extends conexao{
                 $icon = $this->produto_apontado['Imagem'];
                 $img = "./public/img/icon/".$icon." ";
                 $pisca = 'fa-blink';
-            }elseif($this->produto_apontado['Produto'] > " " and $tempo_convertido > 0){
+                
+            }elseif($this->produto_apontado['Produto'] > " " and $hrSaldo_convert >= 0){
                 $background = "lawngreen";
                 $img = "./public/img/icon/time_green.png";
                 $width = "40px";
 
-            }else{
+            }elseif($this->produto_apontado['Produto'] > " " and $hrSaldo_convert < 0){
                 $background = "lawngreen";
                 $color = "red";
                 $img = "./public/img/icon/time_red.png";
                 $width = "40px";
-
             }
+			if($hr_real > $hr_prev){
+				$color_hr = "white";
+				$background_hr = "red";
+				$color = "red";
+				$img = "./public/img/icon/time_red.png";
+			}
+			
+			if($hr_saldo < 0){
+				$color_hr = "white";
+				$background_hr = "red";				
+				$img = "./public/img/icon/time_red.png";
+			}
+
 
             // echo '<p style=background:yellow><span  style=color:black;font-weight:bold;>ATIVIDADES:</span>'. $this->atividades . '</p></br>';
             if(!empty($titulo)){
@@ -416,25 +407,60 @@ class tarefas extends conexao{
             echo        "<table class='table table-bordered'>";
             echo            "<thead class='thead-dark'>";
             echo                "<tr>";
-            echo                    "<th scope='col'>". $this->produto_apontado['CodRecurso'] . '<span  style=background:'.$background_hr.';color:'.$color_hr.';float:right>'.$tempo_convertido.'</span>' .  "</th>";    
+            echo                    "<th scope='col'>". $this->produto_apontado['CodRecurso'] . '<span  style=background:'.$background_hr.';color:'.$color_hr.';float:right>'.$hrSaldo_convert.'</span>' .  "</th>";    
             echo                "</tr>";
+
             echo            "</thead>";
             echo            "<tbody>";
             echo                "<tr>";        
             echo                    "<td class=".$pisca." style='background:".$background.";color:".$color.";border-color:black;'>". $this->atividades . "<img style=width:".$width." src=".$img.">" . "</td>";  
             echo                "</tr>";
+
+            if($this->produto_apontado['Produto'] > ""){
+            echo                "<tr>";
+            echo                    "<td style='background:gray;color:white;border-color:black;'>Prev=".$hrPrev_convert." - Real=".$hrReal_convert." - Saldo=".$hrSaldo_convert."</td>";  
+            echo                "</tr>";
+            }else{
+                echo             "<tr>";
+                echo                 "<td style='background:gray;color:white;border-color:black;'>Improdutivo</td>";  
+                echo             "</tr>";
+            }
+
             echo            "</tbody>";
             echo        "</table>";
             echo    "</div>";
+        }           
 
-        }   
-        
         unset($sql);
         unset($array2);
 
-
-
     }
+
+    /* public function maqParadaListar(){
+        $this->sql_conexao("TAREFAS");
+        ini_set('max_execution_time', 100);
+        
+        $sqlMaqParada = " EXEC FS_NEW.DBO.SP_GetMaquinaParada '#' ";
+
+        $queryMaqParada = sqlsrv_query($this->con, $sqlMaqParada);
+
+        while($arrayMaqParada = sqlsrv_fetch_array($queryMaqParada)){       
+        
+
+            echo    "<div class='col-lg-4 col-md-6 col-sm-12 col-12'>";    
+            echo        "<table class='table table-bordered'>";
+            echo            "<thead class='table-danger'>";
+            echo                "<tr>";
+            echo                    "<th scope='col'>".$arrayMaqParada['CodMaquina'] ."</th>";    
+            echo                "</tr>";
+            echo            "</thead>";
+            echo            "<tbody>";
+            echo            "</tbody>";
+            echo        "</table>";
+            echo    "</div>";       
+            
+        }        
+    }*/
 
 }
 

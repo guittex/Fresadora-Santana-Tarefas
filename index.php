@@ -37,28 +37,41 @@ if(!empty($_GET['recurso'])){
     //echo $recurso;
 }
 
-
 if(!empty($recurso)){
 
 echo "<script>var recurso = '". $recurso ."';
             console.log(recurso);        
         </script>";
 //echo "to no recurso volta ajax nao";
-
 }
-
 
 if(!empty($_GET['atividade'])){
     $atividades = $_GET['atividade'];
 }
 
+$porta = $_SERVER['SERVER_PORT'];
+
+session_start();
+
+if (isset($_SESSION["login"])) { 
+    $porta = 8086;
+    //echo $_SESSION['login'];
+}
+
+if ( $porta != 8086){
+
+    echo
+    "<script>   
+        alert('Necessário entrar primeiro!');
+    </script>";    
+    header('Location: login.php'); 
+
+    
+}
+
 
 ?>
-<style>
 
-
-
-</style>
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -68,7 +81,6 @@ $tarefas->getApontamento();
 
 $atividades = $tarefas->produto_apontado['ATIVIDADE'];
 
-
 ?>
 
 <!--IMPORTACAO DO HEADER-->    
@@ -76,16 +88,14 @@ $atividades = $tarefas->produto_apontado['ATIVIDADE'];
 include_once("header.php");
 ?>
 
-
-
 <body class="tes" style='background: white!important;'>
 
 <!--IMPORTACAO DO MENU--> 
 <?php
 include_once("menu.php");
-
-
 ?>
+
+
 
 <!--INICIO DO CONTAINER-->
 <div class="container-fluid theme-showcase" role="main">
@@ -97,9 +107,7 @@ include_once("menu.php");
         <!--<img id='btn_proximo' src=public/img/proximo.png style='max-width: 75%!important;'>-->
 
     </div>
-
 </div>
-
 
     <div class="row" STYLE="display: inherit;">
         <div class="col-md-12 table-striped table-responsive shadow p-3 mb-5 bg-white rounded" style=padding:0px!important>
@@ -116,8 +124,6 @@ include_once("menu.php");
         </div>
     </div>
 
-
-
     <div class="row" style="display: inherit; margin-top: 40px">
         <div class="col-12">
         
@@ -132,16 +138,11 @@ include_once("menu.php");
                             while($array = sqlsrv_fetch_array($query_fabrica)){?>
                                 <option id="option_setor" value="<?php echo $array['ID_FABRICA']; ?> "><?php echo $array['FABRICA_DESCR']; ?>  </option> <?php
 
-                                }
-                                
+                                }                                
                             ?>
                         </select>                        
                         <select name='recurso' id='recurso' class='form-control form-control-lg col-3' style="background: aqua; display:none;margin-right: 30px;">
                             <option  disabled selected>Recurso</option>
-                            <?php
-                            
-                            
-                            ?>
                         </select> 
                         <button name='pesquisa' id='btn_geral' type="button" class="btn btn-primary w-25" data-toggle='modal' data-target='#pesquisar_modal'>Produto</button>
 						
@@ -155,7 +156,6 @@ include_once("menu.php");
 
         </div>
     </div>   
-
     
     <!--TABELA LISTAR TAREFAS-->
     <div class="row" id="tabela_listar_rhs" STYLE="display: inherit;">
@@ -197,8 +197,7 @@ include_once("menu.php");
                     $tarefas->pesquisar($recurso);
                         
 
-                    }                    
-                
+                    }              
 
                 ?>	                
                 <!-- Inicio Loop sem pesquisar-->                 
@@ -218,7 +217,6 @@ include_once("menu.php");
     </div>   
 </div>
 
-
 <!-- MODAIS -->
 <?php
 $tarefas->legenda();
@@ -228,8 +226,6 @@ $tarefas->selecionar_setor();
 
 ?>
 <!----------->
-
-
 
 <!--IMPORTACAO FOOTER-->
 <?php
@@ -245,8 +241,6 @@ include_once("footer.php");
 //document.getElementById('recurso_input').value = "<?php echo $recurso ?>";             
 
 </script>
-
-
 
 <!--SCRIPT AJAX PROCURAR-->
 <script>
@@ -297,8 +291,6 @@ include_once("footer.php");
             });
             
         });   
-
-
 
             <?php
 
@@ -390,11 +382,7 @@ include_once("footer.php");
                 error:function(data){
                 }
             });        
-        });       
-
-        
-
-        
+        });         
 </script>
 </body>
 </html>

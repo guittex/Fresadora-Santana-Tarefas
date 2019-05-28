@@ -385,7 +385,7 @@ float: right;
 #logo_fresadora{width:100px;position:absolute;margin-top:23px}
 .title {width: 70%; float: left; text-align: left;}
 .buttons{width: 30%; float:right; margin-top: 0;}
-.tes{font-size: 35px;background: linear-gradient(to right,#00BFFF,#010101);}
+.tes{font-size: 35px;background: linear-gradient(#00BFFF,#010101);}
 #btn_voltar{width:100px!important;}
 .form_tabela{font-size:24px!important;color:black!important}
 #produto_tabela{width:100%;}
@@ -425,7 +425,7 @@ float: right;
 #btn_geral{font-size: 1rem;font-family:cursive;height: 60px;}
 #produto{font-size: 24px!important;text-align: center;}
 #logo_fresadora{width:107px;position:absolute;margin-top:21px}
-.tes{font-size: 30px;background: linear-gradient(#00BFFF,#010101);}
+.tes{font-size: 30px;background: linear-gradient(to right, #00BFFF,#010101);}
 #setor{height: 58px;font-size: 21px;}
 #recurso{height: 58px;font-size: 21px;}
 .menu{width: auto; height: 56px; line-height: 56px;float: right; background-color: white	; display: block !important;
@@ -480,7 +480,7 @@ input{
     background-color: rgba(245, 245, 245, 0.021);;
     color:#130400;
     border: 1px solid black;
-    padding: 3%;
+    padding: 1%;
     border-radius: 5px;
     font-size: 15px;*/
     

@@ -5,24 +5,40 @@ class funcoes{
 
 
     public function HrDecToString($horasdecimal){
-    // Define o formato de saida
-    $formato = '%02d:%02d';
-    // Converte para minutos
+        // Define o formato de saida
+        $formato = '%02d:%02d';
+        // Converte para minutos
 
-    $horasInteiras = abs($horasdecimal);
+        $negativo = "";
 
-    $minutos = $horasInteiras * 60;
+        $horasInteiras = abs($horasdecimal);
 
-    // Converte para o formato hora
-    $horas = floor($minutos / 60);
-    $minutos = ($minutos % 60);
-    
-    if($horasdecimal < 0 ){
-        $horas = $horas * -1;
-    }
-    // Retorna o valor
-    return sprintf($formato, $horas, $minutos);
-    
+        $minutos = $horasInteiras * 60;
+
+        // Converte para o formato hora
+        $horas = floor($minutos / 60);
+        $minutos = ($minutos % 60);
+        
+
+        if($horasdecimal < 0 ){
+            $negativo = "-";
+        }
+        
+        // Retorna o valor
+        if($horas <= 24){
+            return $negativo . sprintf($formato, $horas, $minutos);
+
+        }elseif($horasdecimal < 0){
+            $dias = ($horas / 9);
+            $dias =  round($dias, 0);
+            return $negativo . $dias . " dias";
+
+        }else{
+            $dias = ($horas / 9);
+            $dias =  round($dias, 0);
+            return $dias . " dias";
+        }
+        
     }
 
 }
